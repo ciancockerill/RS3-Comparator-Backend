@@ -1,3 +1,4 @@
+import flask
 from flask import Flask, jsonify, request
 
 import api_request
@@ -8,7 +9,7 @@ application = Flask(__name__)
 
 
 @application.route('/rs3player', methods=['GET'])
-def get_runescape_data():
+def getPlayerData():
     # http request would be .../rs3player?user=playerName
     playerName = request.args.get('user')
     requestedData = api_request.requestPlayerData(playerName)
@@ -17,5 +18,10 @@ def get_runescape_data():
     return jsonify(formattedData)
 
 
+@application.route('/', methods=['GET'])
+def getHomePage():
+    return flask.render_template('homepage.html')
+
+
 if __name__ == '__main__':
-    application.run(debug=False)
+    application.run(debug=True)
