@@ -15,7 +15,9 @@ def getPlayerData():
     requestedData = api_request.requestPlayerData(playerName)
     formattedData = rs_data_processor.DataProcessor(requestedData).getFormattedData()
 
-    return jsonify(formattedData)
+    response = jsonify(formattedData)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 
 @application.route('/', methods=['GET'])
